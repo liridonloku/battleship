@@ -6,7 +6,7 @@ const shipFactory = (length) => ({
   hit(position) {
     this.hitPositions.push(position);
   },
-  sunk() {
+  checkSunkStatus() {
     if (this.hitPositions.length !== this.length) {
       return;
     }
