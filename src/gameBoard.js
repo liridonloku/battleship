@@ -1,5 +1,14 @@
 /* eslint-disable import/prefer-default-export */
-const gameBoard = () => {
+
+/* const shipModel = {
+  carrier: 5,
+  battleship: 4,
+  destroyer: 3,
+  submarine: 3,
+  patrolBoat: 2,
+}; */
+
+const newBoard = () => {
   const array = [];
   for (let i = 0; i < 10; i += 1) {
     const row = [];
@@ -8,9 +17,7 @@ const gameBoard = () => {
     }
     array.push(row);
   }
-  return {
-    board: array,
-  };
+  return array;
 };
 
-export { gameBoard };
+export { newBoard };
