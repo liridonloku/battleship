@@ -34,7 +34,16 @@ const newBoard = () => {
       ships.push(newShip);
     }
   }
-  return { board, ships, placeShip };
+  function receiveAttack(coordinates) {
+    ships.forEach((ship) => {
+      ship.coordinates.forEach((position) => {
+        if (position === coordinates) {
+          ship.hit(position);
+        }
+      });
+    });
+  }
+  return { board, ships, placeShip, receiveAttack };
 };
 
 export { newBoard };
