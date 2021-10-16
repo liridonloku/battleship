@@ -35,13 +35,16 @@ const newBoard = () => {
     }
   }
   function receiveAttack(coordinates) {
+    let hitShip = false;
     ships.forEach((ship) => {
       ship.coordinates.forEach((position) => {
         if (position === coordinates) {
           ship.hit(position);
+          hitShip = true;
         }
       });
     });
+    return hitShip ? "Hit" : "Miss";
   }
   return { board, ships, placeShip, receiveAttack };
 };

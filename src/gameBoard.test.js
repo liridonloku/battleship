@@ -17,6 +17,7 @@ test("Place ship", () => {
 test("Receive Attack - ship hit", () => {
   const board = newBoard();
   board.placeShip(3, "5-5");
-  board.receiveAttack("5-6");
+  expect(board.receiveAttack("5-6")).toBe("Hit");
+  expect(board.receiveAttack("4-5")).toBe("Miss");
   expect(board.ships[0].hitPositions).toEqual(["5-6"]);
 });
