@@ -18,6 +18,13 @@ test("Receive Attack - ship hit", () => {
   const board = newBoard();
   board.placeShip(3, "5-5");
   expect(board.receiveAttack("5-6")).toBe("Hit");
-  expect(board.receiveAttack("4-5")).toBe("Miss");
   expect(board.ships[0].hitPositions).toEqual(["5-6"]);
+});
+
+test("Attack same cell twice and miss", () => {
+  const board = newBoard();
+  expect(board.receiveAttack("4-5")).toBe("Miss");
+  expect(board.receiveAttack("4-5")).toBe(
+    "Can't attack same position more than once"
+  );
 });

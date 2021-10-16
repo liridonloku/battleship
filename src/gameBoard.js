@@ -13,6 +13,7 @@ import { shipFactory } from "./ship";
 const newBoard = () => {
   const ships = [];
   const board = [];
+  const attacks = [];
   for (let i = 0; i < 10; i += 1) {
     const row = [];
     for (let j = 0; j < 10; j += 1) {
@@ -35,6 +36,9 @@ const newBoard = () => {
     }
   }
   function receiveAttack(coordinates) {
+    if (attacks.indexOf(coordinates) >= 0) {
+      return "Can't attack same position more than once";
+    }
     let hitShip = false;
     ships.forEach((ship) => {
       ship.coordinates.forEach((position) => {
@@ -44,6 +48,7 @@ const newBoard = () => {
         }
       });
     });
+    attacks.push(coordinates);
     return hitShip ? "Hit" : "Miss";
   }
   return { board, ships, placeShip, receiveAttack };
