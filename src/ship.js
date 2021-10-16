@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
-const shipFactory = (length) => ({
-  length,
+const shipFactory = (coordinates) => ({
+  length: coordinates.length,
+  coordinates,
   hitPositions: [],
   isSunk: false,
   hit(position) {
