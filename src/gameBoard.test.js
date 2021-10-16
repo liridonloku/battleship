@@ -28,3 +28,12 @@ test("Attack same cell twice and miss", () => {
     "Can't attack same position more than once"
   );
 });
+
+test("All ships are sunk", () => {
+  const board = newBoard();
+  board.placeShip(3, "3-3");
+  board.receiveAttack("3-3");
+  board.receiveAttack("3-4");
+  board.receiveAttack("3-5");
+  expect(board.allShipsSunk()).toBe(true);
+});

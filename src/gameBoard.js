@@ -51,7 +51,17 @@ const newBoard = () => {
     attacks.push(coordinates);
     return hitShip ? "Hit" : "Miss";
   }
-  return { board, ships, placeShip, receiveAttack };
+
+  function allShipsSunk() {
+    let allSunk = true;
+    ships.forEach((ship) => {
+      if (ship.isSunk === false) {
+        allSunk = false;
+      }
+    });
+    return allSunk;
+  }
+  return { board, ships, placeShip, receiveAttack, allShipsSunk };
 };
 
 export { newBoard };
