@@ -72,7 +72,7 @@ const newBoard = () => {
     });
     return allSunk;
   }
-  return { board, ships, placeShip, receiveAttack, allShipsSunk };
+  return { board, attacks, ships, placeShip, receiveAttack, allShipsSunk };
 };
 
 export { newBoard };
