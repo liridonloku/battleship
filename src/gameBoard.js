@@ -25,14 +25,25 @@ const newBoard = () => {
     if (10 - position.charAt(2) < length) {
       throw new Error("Can't place a ship of that length there");
     } else {
+      let overlap = false;
       const coordinates = [];
       const firstCoordinate = parseInt(position.charAt(0), 10);
       const secondCoordinate = parseInt(position.charAt(2), 10);
       for (let i = 0; i < length; i += 1) {
         coordinates.push(`${firstCoordinate}-${secondCoordinate + i}`);
       }
-      const newShip = shipFactory(coordinates);
-      ships.push(newShip);
+      // check coordinate overlap
+      ships.forEach((ship) => {
+        if (ship.coordinates.some((item) => coordinates.includes(item))) {
+          overlap = true;
+        }
+      });
+      if (overlap) {
+        throw new Error("Can't place ship on top of another ship");
+      } else {
+        const newShip = shipFactory(coordinates);
+        ships.push(newShip);
+      }
     }
   }
   function receiveAttack(coordinates) {

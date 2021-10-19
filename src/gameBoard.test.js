@@ -14,6 +14,14 @@ test("Place ship", () => {
   expect(board2.ships[0]).toBe(undefined);
 });
 
+test("Place ships on top of each other throws error", () => {
+  const board = newBoard();
+  board.placeShip(4, "1-1");
+  expect(() => {
+    board.placeShip(2, "1-3");
+  }).toThrow("Can't place ship on top of another ship");
+});
+
 test("Receive Attack - ship hit", () => {
   const board = newBoard();
   board.placeShip(3, "5-5");
