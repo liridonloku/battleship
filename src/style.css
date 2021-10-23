@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+main {
+  display: flex;
+  height: calc(100vh - 80px);
+}
+
+.left,
+.right {
+  height: 100%;
+  width: 50%;
+}
+
+.left-content,
+.right-content {
+  height: max(200px, 100%);
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+}
