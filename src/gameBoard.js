@@ -23,7 +23,7 @@ const newBoard = () => {
   }
   function placeShip(length, position) {
     if (10 - position.charAt(2) < length) {
-      throw new Error("Can't place a ship of that length there");
+      // do nothing.
     } else {
       let overlap = false;
       const coordinates = [];
@@ -39,7 +39,7 @@ const newBoard = () => {
         }
       });
       if (overlap) {
-        throw new Error("Can't place ship on top of another ship");
+        // do nothing.
       } else {
         const newShip = shipFactory(coordinates);
         ships.push(newShip);

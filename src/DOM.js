@@ -13,6 +13,8 @@ const domElements = {
 const loadGameElements = (player1, player2) => {
   domElements.player1Name.textContent = player1.name;
   domElements.player2Name.textContent = player2.name;
+  domElements.player1Board.replaceChildren();
+  domElements.player2Board.replaceChildren();
   player1.board.board.forEach((row) => {
     row.forEach((element) => {
       const cell = document.createElement("div");
@@ -87,7 +89,47 @@ const attack = (e) => {
   }, 500);
 };
 
+const placeShips = (e) => {
+  switch (players[0].board.ships.length) {
+    default:
+      return;
+    case 0:
+      players[0].board.placeShip(
+        5,
+        `${e.target.getAttribute("data-coordinate")}`
+      );
+      loadShips(players[0]);
+      break;
+    case 1:
+      players[0].board.placeShip(
+        4,
+        `${e.target.getAttribute("data-coordinate")}`
+      );
+      loadShips(players[0]);
+      break;
+    case 2:
+    case 3:
+      players[0].board.placeShip(
+        3,
+        `${e.target.getAttribute("data-coordinate")}`
+      );
+      loadShips(players[0]);
+      break;
+    case 4:
+      players[0].board.placeShip(
+        2,
+        `${e.target.getAttribute("data-coordinate")}`
+      );
+      loadShips(players[0]);
+      break;
+  }
+  if (players[0].board.ships.length === 5) {
+    domElements.player1Board.removeEventListener("click", placeShips);
+  }
+};
+
 const addEventListeners = () => {
+  domElements.player1Board.addEventListener("click", placeShips);
   domElements.player2Board.addEventListener("click", attack);
 };
 

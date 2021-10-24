@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { addEventListeners, loadGameElements, loadShips } from "./DOM";
+import { addEventListeners, loadGameElements } from "./DOM";
 import { players, player } from "./player";
 
 const game = () => {
@@ -10,17 +10,15 @@ const game = () => {
   const player2 = player("cpu");
   players.push(player1, player2);
   loadGameElements(player1, player2);
-  player1.board.placeShip(5, "0-0");
-  player1.board.placeShip(4, "2-3");
-  player1.board.placeShip(3, "5-6");
-  player1.board.placeShip(3, "4-7");
-  player1.board.placeShip(2, "8-2");
-  player2.board.placeShip(5, "0-0");
-  player2.board.placeShip(4, "2-3");
-  player2.board.placeShip(3, "5-6");
-  player2.board.placeShip(3, "4-7");
-  player2.board.placeShip(2, "8-2");
-  loadShips(player1);
+  const shipLengthOptions = [5, 4, 3, 3, 2];
+  for (let i = 0; i < shipLengthOptions.length; i += 1) {
+    while (player2.board.ships.length < i + 1) {
+      player2.board.placeShip(
+        shipLengthOptions[i],
+        `${Math.floor(Math.random() * 10)}-${Math.floor(Math.random() * 10)}`
+      );
+    }
+  }
   addEventListeners();
 };
 
