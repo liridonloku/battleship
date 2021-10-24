@@ -58,10 +58,14 @@ const attack = (e) => {
   } else {
     e.target.classList.add("miss");
   }
+
+  if (players[1].board.allShipsSunk()) {
+    // implement a modal for result and game restart
+  }
   setTimeout(() => {
     const coordinate = aiShot(players[0].board);
     players[0].board.receiveAttack(coordinate);
-    let condition = false;
+    condition = false;
     players[0].board.ships.forEach((ship) => {
       if (ship.coordinates.some((item) => item === coordinate)) {
         condition = true;
@@ -75,6 +79,10 @@ const attack = (e) => {
       domElements.player1Board
         .querySelector(`[data-coordinate="${coordinate}"]`)
         .classList.add("miss");
+    }
+
+    if (players[0].board.allShipsSunk()) {
+      // implement a modal for result and game restart
     }
   }, 500);
 };
