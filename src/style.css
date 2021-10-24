@@ -40,6 +40,13 @@ main {
 
 .player-info {
   height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell {
+  border: 1px solid grey;
 }
 
 .board-container {
@@ -51,7 +58,7 @@ main {
 
 .board {
   aspect-ratio: 1;
-  height: 100%;
+  height: min(45vw, 100%);
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);

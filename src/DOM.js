@@ -29,4 +29,14 @@ const loadGameElements = (player1, player2) => {
   });
 };
 
-export { loadGameElements };
+const loadShips = (player) => {
+  player.board.ships.forEach((ship) => {
+    ship.coordinates.forEach((position) => {
+      domElements.player1Board
+        .querySelector(`[data-coordinate='${position}']`)
+        .classList.add("ship");
+    });
+  });
+};
+
+export { loadGameElements, loadShips };
