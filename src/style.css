@@ -10,13 +10,28 @@ body {
 header {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   height: 40px;
+  font-size: 32px;
+  font-family: serif;
+}
+
+.info {
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.info > p {
+  margin: 0;
+  padding: 0;
 }
 
 main {
   display: flex;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 160px);
 }
 
 .left,
@@ -46,7 +61,7 @@ main {
 }
 
 .cell {
-  border: 1px solid grey;
+  border: 1px solid lightgrey;
 }
 
 .board-container {
@@ -62,7 +77,7 @@ main {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  box-shadow: 0 0 4px black;
+  box-shadow: 0 0 4px darkslategray;
 }
 
 .hover {
@@ -74,7 +89,7 @@ main {
 }
 
 .miss {
-  background-color: blue;
+  background-color: royalblue;
 }
 
 .ship {
@@ -94,4 +109,36 @@ footer {
   justify-content: center;
   align-items: center;
   height: 40px;
+}
+
+.overlay {
+  scale: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.overlay.visible {
+  scale: 1;
+}
+
+.dialog-box {
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 150px;
+  width: 300px;
 }

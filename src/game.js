@@ -6,8 +6,8 @@ const game = () => {
   while (players.length > 0) {
     players.pop();
   }
-  const player1 = player("player1");
-  const player2 = player("cpu");
+  const player1 = player("Player");
+  const player2 = player("Cpu");
   players.push(player1, player2);
   loadGameElements(player1, player2);
   const shipLengthOptions = [5, 4, 3, 3, 2];

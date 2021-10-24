@@ -1,4 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+// eslint-disable-next-line import/no-cycle
+import { game } from "./game";
 import { aiShot, players } from "./player";
 
 const domElements = {
@@ -8,6 +10,11 @@ const domElements = {
   player2Board: document.querySelector(
     ".right-content>.board-container>.board"
   ),
+  instructions: document.querySelector(".instructions"),
+  currentShip: document.querySelector(".current-ship"),
+  overlay: document.querySelector(".overlay"),
+  endMessage: document.querySelector(".end-message"),
+  resetButton: document.getElementById("reset"),
 };
 
 const loadGameElements = (player1, player2) => {
@@ -44,6 +51,13 @@ const loadShips = (player) => {
 };
 
 const attack = (e) => {
+  if (
+    players[1].board.attacks.indexOf(
+      `${e.target.getAttribute("data-coordinate")}`
+    ) >= 0
+  ) {
+    return;
+  }
   players[1].board.receiveAttack(`${e.target.getAttribute("data-coordinate")}`);
   let condition = false;
   players[1].board.ships.forEach((ship) => {
@@ -62,7 +76,9 @@ const attack = (e) => {
   }
 
   if (players[1].board.allShipsSunk()) {
-    // implement a modal for result and game restart
+    domElements.endMessage.textContent = "You Win! All enemy ships have sunk.";
+    domElements.overlay.classList.add("visible");
+    return;
   }
   setTimeout(() => {
     const coordinate = aiShot(players[0].board);
@@ -84,7 +100,9 @@ const attack = (e) => {
     }
 
     if (players[0].board.allShipsSunk()) {
-      // implement a modal for result and game restart
+      domElements.endMessage.textContent =
+        "You Lose! All your ships have sunk.";
+      domElements.overlay.classList.add("visible");
     }
   }, 500);
 };
@@ -126,8 +144,11 @@ const placeShips = (e) => {
   domElements.player1Board
     .querySelectorAll(".cell")
     .forEach((cell) => cell.classList.remove("hover"));
+  // eslint-disable-next-line no-use-before-define
+  updateInstructions();
   if (players[0].board.ships.length === 5) {
     domElements.player1Board.removeEventListener("click", placeShips);
+    domElements.player2Board.addEventListener("click", attack);
   }
 };
 
@@ -249,11 +270,50 @@ const hoverOut = (e) => {
   }
 };
 
+const updateInstructions = () => {
+  switch (players[0].board.ships.length) {
+    default:
+      break;
+    case 0:
+      domElements.instructions.textContent =
+        "Welcome to Battleship! Place your ships on your board by clicking a cell.";
+      domElements.currentShip.textContent = "Current Ship: Carrier (length: 5)";
+      break;
+    case 1:
+      domElements.currentShip.textContent =
+        "Current Ship: Battleship (length: 4)";
+      break;
+    case 2:
+      domElements.currentShip.textContent =
+        "Current Ship: Destroyer (length: 3)";
+      break;
+    case 3:
+      domElements.currentShip.textContent =
+        "Current Ship: Submarine (length: 3)";
+      break;
+    case 4:
+      domElements.currentShip.textContent =
+        "Current Ship: Patrol Boat (length: 2)";
+      break;
+    case 5:
+      domElements.currentShip.textContent = "";
+      domElements.instructions.textContent =
+        "Attack the enemy board by clicking on their cells";
+      break;
+  }
+};
+
 const addEventListeners = () => {
   domElements.player1Board.addEventListener("click", placeShips);
   domElements.player1Board.addEventListener("mouseover", hoverIn);
   domElements.player1Board.addEventListener("mouseout", hoverOut);
-  domElements.player2Board.addEventListener("click", attack);
 };
+
+domElements.resetButton.addEventListener("click", () => {
+  domElements.overlay.classList.remove("visible");
+  domElements.endMessage.textContent = "";
+  game();
+  updateInstructions();
+});
 
 export { loadGameElements, loadShips, addEventListeners };
