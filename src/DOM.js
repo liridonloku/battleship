@@ -123,13 +123,136 @@ const placeShips = (e) => {
       loadShips(players[0]);
       break;
   }
+  domElements.player1Board
+    .querySelectorAll(".cell")
+    .forEach((cell) => cell.classList.remove("hover"));
   if (players[0].board.ships.length === 5) {
     domElements.player1Board.removeEventListener("click", placeShips);
   }
 };
 
+const hoverIn = (e) => {
+  const position = e.target.getAttribute("data-coordinate");
+  const firstCoordinate = parseInt(position.charAt(0), 10);
+  const secondCoordinate = parseInt(position.charAt(2), 10);
+  switch (players[0].board.ships.length) {
+    default:
+      break;
+    case 0:
+      for (
+        let i = secondCoordinate;
+        i < Math.min(secondCoordinate + 5, 10);
+        i += 1
+      ) {
+        const coordinates = `${firstCoordinate}-${i}`;
+        domElements.player1Board
+          .querySelector(`[data-coordinate="${coordinates}"]`)
+          .classList.add("hover");
+      }
+      break;
+    case 1:
+      for (
+        let i = secondCoordinate;
+        i < Math.min(secondCoordinate + 4, 10);
+        i += 1
+      ) {
+        const coordinates = `${firstCoordinate}-${i}`;
+        domElements.player1Board
+          .querySelector(`[data-coordinate="${coordinates}"]`)
+          .classList.add("hover");
+      }
+      break;
+    case 2:
+    case 3:
+      for (
+        let i = secondCoordinate;
+        i < Math.min(secondCoordinate + 3, 10);
+        i += 1
+      ) {
+        const coordinates = `${firstCoordinate}-${i}`;
+        domElements.player1Board
+          .querySelector(`[data-coordinate="${coordinates}"]`)
+          .classList.add("hover");
+      }
+      break;
+    case 4:
+      for (
+        let i = secondCoordinate;
+        i < Math.min(secondCoordinate + 2, 10);
+        i += 1
+      ) {
+        const coordinates = `${firstCoordinate}-${i}`;
+        domElements.player1Board
+          .querySelector(`[data-coordinate="${coordinates}"]`)
+          .classList.add("hover");
+      }
+      break;
+  }
+};
+
+const hoverOut = (e) => {
+  const position = e.target.getAttribute("data-coordinate");
+  const firstCoordinate = parseInt(position.charAt(0), 10);
+  const secondCoordinate = parseInt(position.charAt(2), 10);
+  switch (players[0].board.ships.length) {
+    default:
+      break;
+    case 0:
+      for (
+        let i = secondCoordinate;
+        i < Math.min(secondCoordinate + 5, 10);
+        i += 1
+      ) {
+        const coordinates = `${firstCoordinate}-${i}`;
+        domElements.player1Board
+          .querySelector(`[data-coordinate="${coordinates}"]`)
+          .classList.remove("hover");
+      }
+      break;
+    case 1:
+      for (
+        let i = secondCoordinate;
+        i < Math.min(secondCoordinate + 4, 10);
+        i += 1
+      ) {
+        const coordinates = `${firstCoordinate}-${i}`;
+        domElements.player1Board
+          .querySelector(`[data-coordinate="${coordinates}"]`)
+          .classList.remove("hover");
+      }
+      break;
+    case 2:
+    case 3:
+      for (
+        let i = secondCoordinate;
+        i < Math.min(secondCoordinate + 3, 10);
+        i += 1
+      ) {
+        const coordinates = `${firstCoordinate}-${i}`;
+        domElements.player1Board
+          .querySelector(`[data-coordinate="${coordinates}"]`)
+          .classList.remove("hover");
+      }
+      break;
+    case 4:
+      for (
+        let i = secondCoordinate;
+        i < Math.min(secondCoordinate + 2, 10);
+        i += 1
+      ) {
+        const coordinates = `${firstCoordinate}-${i}`;
+        domElements.player1Board
+          .querySelector(`[data-coordinate="${coordinates}"]`)
+          .classList.remove("hover");
+      }
+      break;
+  }
+};
+
 const addEventListeners = () => {
   domElements.player1Board.addEventListener("click", placeShips);
+  domElements.player1Board.addEventListener("mouseover", hoverIn);
+  domElements.player1Board.addEventListener("mouseout", hoverOut);
   domElements.player2Board.addEventListener("click", attack);
 };
 
