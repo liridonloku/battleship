@@ -1,5 +1,7 @@
 import { newBoard } from "./gameBoard";
 
+const players = [];
+
 const player = (name) => ({
   name,
   board: newBoard(),
@@ -19,4 +21,4 @@ const aiShot = (board) => {
   return coordinate;
 };
 
-export { player, aiShot };
+export { players, player, aiShot };

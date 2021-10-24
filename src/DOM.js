@@ -1,4 +1,6 @@
 /* eslint-disable import/prefer-default-export */
+import { aiShot, players } from "./player";
+
 const domElements = {
   player1Name: document.querySelector(".left-content>.player-info"),
   player1Board: document.querySelector(".left-content>.board-container>.board"),
@@ -39,4 +41,46 @@ const loadShips = (player) => {
   });
 };
 
-export { loadGameElements, loadShips };
+const attack = (e) => {
+  players[1].board.receiveAttack(`${e.target.getAttribute("data-coordinate")}`);
+  let condition = false;
+  players[1].board.ships.forEach((ship) => {
+    if (
+      ship.coordinates.some(
+        (item) => item === `${e.target.getAttribute("data-coordinate")}`
+      )
+    ) {
+      condition = true;
+    }
+  });
+  if (condition) {
+    e.target.classList.add("hit");
+  } else {
+    e.target.classList.add("miss");
+  }
+  setTimeout(() => {
+    const coordinate = aiShot(players[0].board);
+    players[0].board.receiveAttack(coordinate);
+    let condition = false;
+    players[0].board.ships.forEach((ship) => {
+      if (ship.coordinates.some((item) => item === coordinate)) {
+        condition = true;
+      }
+    });
+    if (condition) {
+      domElements.player1Board
+        .querySelector(`[data-coordinate="${coordinate}"]`)
+        .classList.add("hit");
+    } else {
+      domElements.player1Board
+        .querySelector(`[data-coordinate="${coordinate}"]`)
+        .classList.add("miss");
+    }
+  }, 500);
+};
+
+const addEventListeners = () => {
+  domElements.player2Board.addEventListener("click", attack);
+};
+
+export { loadGameElements, loadShips, addEventListeners };
