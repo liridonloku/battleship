@@ -51,6 +51,7 @@ const loadShips = (player) => {
 };
 
 const attack = (e) => {
+  e.stopPropagation();
   if (
     players[1].board.attacks.indexOf(
       `${e.target.getAttribute("data-coordinate")}`
