@@ -55,7 +55,8 @@ const attack = (e) => {
   if (
     players[1].board.attacks.indexOf(
       `${e.target.getAttribute("data-coordinate")}`
-    ) >= 0
+    ) >= 0 ||
+    e.target.classList.contains("board")
   ) {
     return;
   }
