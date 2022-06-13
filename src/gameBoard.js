@@ -39,7 +39,7 @@ const newBoard = () => {
         }
       });
       if (overlap) {
-        // do nothing.
+        throw new Error("Can't place ship on top of another ship");
       } else {
         const newShip = shipFactory(coordinates);
         ships.push(newShip);
