@@ -21,6 +21,7 @@ const newBoard = () => {
     }
     board.push(row);
   }
+  // eslint-disable-next-line consistent-return
   function placeShip(length, position) {
     if (10 - position.charAt(2) < length) {
       // do nothing.
@@ -39,11 +40,10 @@ const newBoard = () => {
         }
       });
       if (overlap) {
-        throw new Error("Can't place ship on top of another ship");
-      } else {
-        const newShip = shipFactory(coordinates);
-        ships.push(newShip);
+        return "Can't place ship on top of another ship";
       }
+      const newShip = shipFactory(coordinates);
+      ships.push(newShip);
     }
   }
   function receiveAttack(coordinates) {

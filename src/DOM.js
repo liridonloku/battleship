@@ -83,7 +83,7 @@ const attack = (e) => {
     return;
   }
   setTimeout(() => {
-    const coordinate = aiShot(players[0].board);
+    const coordinate = aiShot(players[0].board, players[1].lastHit);
     players[0].board.receiveAttack(coordinate);
     condition = false;
     players[0].board.ships.forEach((ship) => {
@@ -95,6 +95,7 @@ const attack = (e) => {
       domElements.player1Board
         .querySelector(`[data-coordinate="${coordinate}"]`)
         .classList.add("hit");
+      players[1].lastHit = coordinate;
     } else {
       domElements.player1Board
         .querySelector(`[data-coordinate="${coordinate}"]`)
